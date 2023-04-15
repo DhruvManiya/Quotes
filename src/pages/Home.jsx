@@ -41,10 +41,10 @@ const setBookmark=() => {}
 
   return (
     <main className="flex flex-col justify-center items-center w-full my-20">
-      <h1 className="text-[3rem] font-[700] text-[#F3CB89]">
+      <h1 className="md:text-[3rem] text-[2rem] font-[700] text-[#F3CB89]">
         QUOTE OF THE DAY
       </h1>
-      <div className="w-[40%]">
+      <div className="lg:w-[40%] md:w-[55%] w-[75%]">
         <select
         onChange={(e) => setCurrentTag(e.target.value)}
           name="quotes"
@@ -59,7 +59,7 @@ const setBookmark=() => {}
           }
         </select>
       </div>
-      <div className="w-[50%]">
+      <div className="lg:w-[50%] md:w-[70%] w-[90%]">
         <QuoteCard quote={quote} initBookmar={false} setBookmark={setBookmark} />
       </div>
       <button className="bg-[#F3CB89] px-6 rounded-3xl shadow-2xl mt-[4rem] py-2 text-[1.25rem]" onClick={() => setQuoteChange(!quoteChange)}>NEXT QUOTE</button>

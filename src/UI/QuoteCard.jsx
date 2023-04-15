@@ -24,15 +24,15 @@ const QuoteCard = ({ quote, initBookmar, setBookmark }) => {
     <>
       {quote !== null ? (
         <div className="w-full py-[3rem] bg-[#F3CB89] rounded-[1rem] shadow-xl">
-          <p className="flex justify-center text-[1.75rem] px-[15%]">
+          <p className="flex justify-center md:text-[1.75rem] text-[1.5rem] md:px-[15%] px-[7%]">
             {quote.content}
           </p>
           <div className="w-full pt-[3rem] flex">
-            <p className="flex justify-center text-[1.2rem] font-[900] w-[90%] pl-[10%]">
+            <p className="flex justify-center text-[1.2rem] font-[900] md:w-[90%] w-[80%] md:pl-[10%] pl-[20%]">
               -{quote.author}
             </p>
             <i
-              className="w-[10%]"
+              className="md:w-[10%] w-[20%]"
               onClick={() => {
                 setBookmark();
                 setBookmarks();

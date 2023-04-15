@@ -41,7 +41,7 @@ const Bookmarks = () => {
   return (
     <>
       <main className="w-full flex flex-col justify-center items-center">
-        <h1 className="text-[4rem] font-[700] text-[#F3CB89]">
+        <h1 className="md:text-[4rem] text-[2.5rem]  font-[700] text-[#F3CB89]">
           Your favourites...
         </h1>
         {bookmarkedQuotes.size === 0 ? (
@@ -54,7 +54,7 @@ const Bookmarks = () => {
           )
         ) : (
           [...bookmarkedQuotes].map((bookmarkedQuote) => (
-            <div className="w-[50%] my-8">
+            <div className="lg:w-[50%] md:w-[70%] w-[90%] my-8">
               <QuoteCard
                 quote={bookmarkedQuote}
                 initBookmar={true}
