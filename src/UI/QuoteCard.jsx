@@ -2,31 +2,23 @@ import React, { useEffect, useState } from "react";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import Lodder from "./Lodder";
-import axios from "axios";
-const QuoteCard = ({ quoteChange, currentTag }) => {
-  const [bookmark, setBookmark] = useState(false);
-  const [quote, setQuote] = useState(null);
 
-  const fatching = async () => {
-    setQuote(null);
-    try {
-      if (currentTag === null) {
-        const res = await axios.get("https://api.quotable.io/random");
-        setQuote(res.data);
-      } else {
-        const res = await axios.get(
-          `https://api.quotable.io/random?tags=${currentTag}`
-        );
-        setQuote(res.data);
-      }
-    } catch (e) {
-      console.log(e);
+const QuoteCard = ({ quote, initBookmar, setBookmark }) => {
+  const [bookmarkIcon, setBookmarkIcon] = useState(false);
+  const setBookmarks = async () => {
+    console.log(bookmarkIcon);
+    setBookmarkIcon(!bookmarkIcon);
+    if (bookmarkIcon) {
+      localStorage.removeItem(quote._id);
+    } else localStorage.setItem(quote._id, quote._id);
+    if (initBookmar) {
+      localStorage.removeItem(quote._id);
     }
   };
 
   useEffect(() => {
-    fatching();
-  }, [quoteChange, currentTag]);
+    return setBookmarkIcon(false);
+  }, [quote]);
 
   return (
     <>
@@ -39,8 +31,14 @@ const QuoteCard = ({ quoteChange, currentTag }) => {
             <p className="flex justify-center text-[1.2rem] font-[900] w-[90%] pl-[10%]">
               -{quote.author}
             </p>
-            <i className="w-[10%]" onClick={() => setBookmark(!bookmark)}>
-              {!bookmark ? (
+            <i
+              className="w-[10%]"
+              onClick={() => {
+                setBookmark();
+                setBookmarks();
+              }}
+            >
+              {!bookmarkIcon && !initBookmar ? (
                 <BookmarkAddIcon
                   fontSize="large"
                   className="text-[#292929] cursor-pointer"

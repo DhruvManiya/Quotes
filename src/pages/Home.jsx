@@ -6,15 +6,38 @@ const Home = () => {
     const [quoteChange, setQuoteChange] = useState(true)
     const [tagList, setTagList] = useState([])
     const [currentTag, setCurrentTag] = useState(null)
-    
+    const [quote, setQuote] = useState(null);
+
 const fatchingTag = async () => {
     const res = await axios.get('https://api.quotable.io/tags')
     setTagList(res.data)
 }
 
-console.log(currentTag)
-
 useEffect(() => {fatchingTag()},[])
+
+
+const fatchingRandomQuote = async () => {
+  setQuote(null);
+  try {
+    if (currentTag === null) {
+      const res = await axios.get("https://api.quotable.io/random");
+      setQuote(res.data);
+    } else {
+      const res = await axios.get(
+        `https://api.quotable.io/random?tags=${currentTag}`
+      );
+      setQuote(res.data);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+useEffect(() => {
+  fatchingRandomQuote();
+}, [quoteChange, currentTag]);
+
+const setBookmark=() => {}
 
   return (
     <main className="flex flex-col justify-center items-center w-full my-20">
@@ -37,7 +60,7 @@ useEffect(() => {fatchingTag()},[])
         </select>
       </div>
       <div className="w-[50%]">
-        <QuoteCard quoteChange={quoteChange} currentTag={currentTag} />
+        <QuoteCard quote={quote} initBookmar={false} setBookmark={setBookmark} />
       </div>
       <button className="bg-[#F3CB89] px-6 rounded-3xl shadow-2xl mt-[4rem] py-2 text-[1.25rem]" onClick={() => setQuoteChange(!quoteChange)}>NEXT QUOTE</button>
     </main>
